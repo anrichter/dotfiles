@@ -11,4 +11,3 @@ for file in *; do
     fi
   fi
 done
-
