@@ -1,7 +1,2 @@
 alias l='ls -l'
 alias ll='ls -la'
-
-# Tools for MSysGit and Delphi Development
-alias find_unix_lee_in_pas='find . -name "*.pas" -type f | xargs dos2unix -vt 2>&1 | egrep -i "UNIX line endings found"'
-alias find_dos_le_in_pas='find . -name "*.pas" -type f | xargs dos2unix -vt 2>&1 | egrep -i "DOS line endings found"'
-alias find_mixed_le_in_pas='find . -name "*.pas" -type f | xargs dos2unix -vt 2>&1 | egrep -i "mixed line endings found"'
