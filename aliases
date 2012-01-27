@@ -1,2 +1,8 @@
 alias l='ls -l'
 alias ll='ls -la'
+
+# Work with Git
+alias gsf='git svn fetch'
+alias gsr='git svn rebase'
+alias gsd='git svn dcommit'
+alias grg='git rebase git-svn'
