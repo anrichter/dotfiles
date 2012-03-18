@@ -9,5 +9,3 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
-
-
