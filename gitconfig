@@ -1,3 +1,5 @@
 [user]
 	email = ar@anrichter.net
 	name = Andreas Richter
+[core]
+	excludesfile = ~/.gitignore.global
