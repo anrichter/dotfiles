@@ -1,9 +1,18 @@
+# directory listings
 alias l='ls -l'
 alias la='ls -A'
 alias ll='ls -alF'
 
-# Work with Git
+# working with Git
 alias gsf='git svn fetch'
 alias gsr='git svn rebase'
 alias gsd='git svn dcommit'
 alias grg='git rebase git-svn'
+
+# working with mtkbabel
+alias gps_log_off='mtkbabel -l off'
+alias gps_set_car='mtkbabel -l off -r 3:10:10'
+alias gps_set_bicycle='mtkbabel -l off -r 5:5:0'
+alias gps_set_run='mtkbabel -l off -r 10:1:0'
+alias gps_clear='mtkbabel -l off -E'
+alias gps_read='gps_log_off && gpsbabel -D 2 -t -w -i mtk -f /dev/ttyUSB0 -o gpx -F'
