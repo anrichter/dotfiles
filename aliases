@@ -1,5 +1,6 @@
 alias l='ls -l'
-alias ll='ls -la'
+alias la='ls -A'
+alias ll='ls -alF'
 
 # Work with Git
 alias gsf='git svn fetch'
