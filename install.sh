@@ -8,7 +8,7 @@ for file in *; do
     if [ $file != 'install.sh' ]; then
       echo "Create dotfile $destination"
       if [ "$MSYSTEM" = "MINGW32" ]; then
-        cp "$PWD/$file" "$destination"
+        cp -a "$PWD/$file" "$destination"
       else
         ln -s "$PWD/$file" "$destination"
       fi
