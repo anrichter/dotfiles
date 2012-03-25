@@ -18,5 +18,4 @@ au BufNewFile,BufRead *.dsk,*.DSK set ft=dosini
 au BufNewFile,BufRead *.desk,*.DESK set ft=dosini
 au BufNewFile,BufRead *.dti,*.DTI set ft=dosini
 " Delphi .BPG = Makefile
-au BufNewFile,BufRead *.bpg,*.BPG set ft=make|setlocal makeprg=make\ -f\ % 
-
+au BufNewFile,BufRead *.bpg,*.BPG set ft=make|setlocal makeprg=make\ -f\ %
