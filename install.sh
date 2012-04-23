@@ -10,7 +10,7 @@ for file in *; do
       if [ "$MSYSTEM" = "MINGW32" ]; then
         cp -a "$PWD/$file" "$destination"
         if [ $file == 'vim' ]; then
-          mv $destination $HOME/vimfiles
+          cp -a $destination $HOME/vimfiles
         fi
       else
         ln -s "$PWD/$file" "$destination"
