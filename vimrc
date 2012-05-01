@@ -2,6 +2,7 @@ call pathogen#infect()
 
 set background=dark
 set number
+set autochdir
 
 " Softtabs, 2 spaces
 set tabstop=2
