@@ -1,6 +1,7 @@
 call pathogen#infect()
 
 set background=dark
+set number
 
 " Softtabs, 2 spaces
 set tabstop=2
