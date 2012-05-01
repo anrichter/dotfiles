@@ -1,3 +1,5 @@
+call pathogen#infect()
+
 set background=dark
 
 " Softtabs, 2 spaces
