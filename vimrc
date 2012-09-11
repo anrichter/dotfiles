@@ -1,5 +1,10 @@
+" Load Plugin system
 call pathogen#infect()
 
+" Internal settings
+set encoding=utf-8
+
+" Visual settings
 set background=dark
 set number
 set autochdir
