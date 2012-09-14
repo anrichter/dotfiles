@@ -2,11 +2,23 @@
 
 for file in *; do
   destination="$HOME/.$file"
-  if [ -e "$destination" ]; then
-    echo "Dotfile $destination already exists. Leave it untouched"
-  else
-    if [ $file != 'install.sh' ]; then
+  install=0;
+  if [ $file != 'install.sh' ]; then
+
+    if [ -e "$destination" ]; then
+      if [ "$MSYSTEM" = "MINGW32" ]; then
+        echo -n "Dotfile $destination already exists. Overwrite it? [Y/n] "
+        read x
+        if [ "$x" = "y" ] || [ "$x" = "Y" ] || [ "$x" = "" ]; then
+          install=1
+          echo "Overwrite dotfile $destination"
+        fi
+      fi
+    else
       echo "Create dotfile $destination"
+    fi
+
+    if [ $install = 1 ]; then
       if [ "$MSYSTEM" = "MINGW32" ]; then
         cp -a "$PWD/$file" "$destination"
         if [ $file == 'vim' ]; then
