@@ -16,6 +16,7 @@ for file in *; do
       fi
     else
       echo "Create dotfile $destination"
+      install=1
     fi
 
     if [ $install = 1 ]; then
