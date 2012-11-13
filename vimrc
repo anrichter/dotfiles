@@ -23,3 +23,6 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
+
+" Show row and column number on bottom right
+set ruler
