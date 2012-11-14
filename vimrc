@@ -26,3 +26,6 @@ endif
 
 " Show row and column number on bottom right
 set ruler
+
+" Enable syntax highlighting
+syntax on
