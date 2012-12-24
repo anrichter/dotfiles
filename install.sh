@@ -37,12 +37,13 @@ install () {
   then
     cp -a "$PWD/$source" "$dest"
   else
-    ln -s "$PWD/$source" "$dest"
+    rm "$dest"
+    ln -sf "$PWD/$source" "$dest"
   fi
 }
 
 install_dotfiles_in () {
-  for file in $( find $1 -name '*' -mindepth 1 -maxdepth 1 )
+  for file in $( find $1 -mindepth 1 -maxdepth 1 -name '*')
   do
     destination=$HOME/.${file#*/}
     can_install $destination
