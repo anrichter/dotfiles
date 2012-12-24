@@ -3,13 +3,22 @@
 YES=1
 NO=2
 
+yes_to_all=$NO
+
 can_install () {
   dest=$1
-  if [ -e "$dest" ]
+
+  if [ $yes_to_all = $NO ] && [ -e "$dest" ]
   then
-    echo -n "Dotfile $dest already exists. Overwrite it? [Y/n] "
+    echo -n "Dotfile $dest already exists. Overwrite it? [Y/n/a] "
     read x
-    if [ "$x" = "y" ] || [ "$x" = "Y" ] || [ "$x" = "" ]
+
+    if [ "$x" = "a" ]
+    then
+      yes_to_all=$YES
+    fi
+
+    if [ "$x" = "y" ] || [ "$x" = "Y" ] || [ "$x" = "" ] || [ "$x" = "a" ]
     then
       return $YES
     else
