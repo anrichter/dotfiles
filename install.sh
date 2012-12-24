@@ -1,33 +1,69 @@
 #!/bin/sh
 
-for file in *; do
-  destination="$HOME/.$file"
-  install=0;
-  if [ $file != 'install.sh' ]; then
+YES=1
+NO=2
 
-    if [ -e "$destination" ]; then
-      if [ "$MSYSTEM" = "MINGW32" ]; then
-        echo -n "Dotfile $destination already exists. Overwrite it? [Y/n] "
-        read x
-        if [ "$x" = "y" ] || [ "$x" = "Y" ] || [ "$x" = "" ]; then
-          install=1
-          echo "Overwrite dotfile $destination"
-        fi
-      fi
+can_install () {
+  dest=$1
+  if [ -e "$dest" ]
+  then
+    echo -n "Dotfile $dest already exists. Overwrite it? [Y/n] "
+    read x
+    if [ "$x" = "y" ] || [ "$x" = "Y" ] || [ "$x" = "" ]
+    then
+      return $YES
     else
-      echo "Create dotfile $destination"
-      install=1
+      return $NO
     fi
+  else
+    return $YES
+  fi
+}
 
-    if [ $install = 1 ]; then
-      if [ "$MSYSTEM" = "MINGW32" ]; then
-        cp -a "$PWD/$file" "$destination"
-        if [ $file == 'vim' ]; then
-          cp -a $destination $HOME/vimfiles
-        fi
+install () {
+  source=$1
+  dest=$2
+  echo "Install $source to $dest"
+  if [ "$MSYSTEM" = "MINGW32" ]
+  then
+    cp -a "$PWD/$source" "$dest"
+  else
+    ln -s "$PWD/$source" "$dest"
+  fi
+}
+
+install_dotfiles_in () {
+  for file in $( find $1 -name '*' -mindepth 1 -maxdepth 1 )
+  do
+    destination=$HOME/.${file#*/}
+    can_install $destination
+    if [ $? = $YES ]
+    then
+      install $file $destination
+    fi
+  done
+}
+
+fix_vimfiles () {
+  if [ "$MSYSTEM" = "MINGW32" ]
+  then
+    src="$HOME/.vim"
+    dest="$HOME/vimfiles"
+
+    if [ -e "$src" ]
+    then
+      can_install $dest
+      if [ $? = $YES ]
+      then
+        rm -rf "$dest"
+        mv "$src" "$dest"
       else
-        ln -s "$PWD/$file" "$destination"
+        rm -rf "$src"
       fi
     fi
   fi
-done
+}
+
+install_dotfiles_in "bash"
+install_dotfiles_in "independent"
+fix_vimfiles
