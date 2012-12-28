@@ -14,7 +14,7 @@ function script:append-path([string] $path)
 }
 
 append-path "${env:ProgramFiles(x86)}\vim\vim73"
-append-path "${env:ProgramFiles(x86)}\Git\cmd"
+append-path "${env:ProgramFiles(x86)}\Git\bin"
 
 #
 # Posh-Git
@@ -36,3 +36,4 @@ function prompt {
 }
 
 Enable-GitColors
+Start-SshAgent -Quiet
