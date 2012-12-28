@@ -37,3 +37,9 @@ function prompt {
 
 Enable-GitColors
 Start-SshAgent -Quiet
+
+#
+# Aliases
+#
+
+Set-Alias vi vim
