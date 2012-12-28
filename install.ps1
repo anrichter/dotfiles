@@ -43,11 +43,11 @@ function InstallPowerShellFiles {
   $psmodulesPath = "$psfilePath\Modules"
   $psmodulesDestPath = "$HOME\Documents\WindowsPowerShell\Modules"
 
-  InstallDotFile "$psfilePath\profile.ps1" "$PROFILE"
-
   if (!(Test-Path $psmodulesDestPath -PathType Container)) {
     New-Item $psmodulesDestPath -ItemType Container
   }
+
+  InstallDotFile "$psfilePath\profile.ps1" "$PROFILE"
 
   foreach($module in Get-ChildItem "$psmodulesPath" -Name)
   {
