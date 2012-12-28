@@ -21,6 +21,7 @@ append-path "${env:ProgramFiles(x86)}\Git\bin"
 #
 
 Import-Module posh-git
+Import-Module posh-svn
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
