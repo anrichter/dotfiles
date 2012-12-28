@@ -38,6 +38,24 @@ function InstallDotFilesIn([string] $path) {
   }
 }
 
+function InstallPowerShellFiles {
+  $psfilePath = "$dotfilePath\powershell"
+  $psmodulesPath = "$psfilePath\Modules"
+  $psmodulesDestPath = "$HOME\Documents\WindowsPowerShell\Modules"
+
+  InstallDotFile "$psfilePath\profile.ps1" "$PROFILE"
+
+  if (!(Test-Path $psmodulesDestPath -PathType Container)) {
+    New-Item $psmodulesDestPath -ItemType Container
+  }
+
+  foreach($module in Get-ChildItem "$psmodulesPath" -Name)
+  {
+    InstallDotFile "$psmodulesPath\$module" "$psmodulesDestPath\$module"
+  }
+}
+
 InstallDotFilesIn "independent"
 InstallDotFilesIn "bash"
 InstallDotFile "$dotfilePath\independent\vim" "$HOME\vimfiles"
+InstallPowerShellFiles
