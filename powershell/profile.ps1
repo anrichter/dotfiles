@@ -1,5 +1,5 @@
 #
-# append Path
+# Script functions
 #
 
 function script:append-path([string] $path)
@@ -12,6 +12,34 @@ function script:append-path([string] $path)
     }
   }
 }
+
+function script:load-environment([string] $command) {
+  foreach($_ in (cmd /c "`"$command`" & set")) {
+    if ($_ -match '^([^=]+)=(.*)') {
+      [System.Environment]::SetEnvironmentVariable($matches[1], $matches[2])
+    }
+  }
+}
+
+function script:add-windowtitle([string] $title) {
+  if (!($Host.UI.RawUI.WindowTitle -match $title)) {
+    $Host.UI.RawUI.WindowTitle += " | $title"
+  }
+}
+
+#
+# Global Functions
+#
+
+function Start-VisualStudio2012Environment {
+  load-environment "${env:VS110COMNTOOLS}\VsDevCmd.bat"
+  Write-Host "Visual Studio 2012 Environment Variables set." -ForegroundColor Yellow
+  add-windowtitle "Visual Studio 2012"
+}
+
+#
+# Path
+#
 
 append-path "${env:ProgramFiles(x86)}\vim\vim73"
 append-path "${env:ProgramFiles(x86)}\Git\bin"
