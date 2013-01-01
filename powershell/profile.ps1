@@ -42,6 +42,7 @@ function Start-VisualStudio2012Environment {
 #
 
 append-path "${env:ProgramFiles(x86)}\vim\vim73"
+append-path "${env:ProgramFiles(x86)}\Git\cmd"
 append-path "${env:ProgramFiles(x86)}\Git\bin"
 
 #
