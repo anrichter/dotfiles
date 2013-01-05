@@ -3,3 +3,5 @@
 	name = Andreas Richter
 [core]
 	excludesfile = ~/.gitignore.global
+[push]
+  default = simple
