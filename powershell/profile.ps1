@@ -37,6 +37,13 @@ function Start-VisualStudio2012Environment {
   add-windowtitle "Visual Studio 2012"
 }
 
+function New-Gitignore ([string] $environment) {
+  $source = "$HOME\.gitignores\$environment.gitignore"
+  if (Test-Path $source) {
+    Copy-Item $source .gitignore
+  }
+}
+
 #
 # Path
 #
