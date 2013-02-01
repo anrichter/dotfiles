@@ -59,3 +59,4 @@ InstallDotFilesIn "independent"
 InstallDotFilesIn "bash"
 InstallDotFile "$dotfilePath\independent\vim" "$HOME\vimfiles"
 InstallPowerShellFiles
+InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
