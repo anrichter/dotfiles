@@ -73,7 +73,6 @@ function prompt {
 }
 
 Enable-GitColors
-Start-SshAgent -Quiet
 
 #
 # Aliases
