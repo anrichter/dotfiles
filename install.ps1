@@ -1,8 +1,3 @@
-#
-# In order to run this script you have to set the ExecutionPolicy as an Administrator like this
-# Set-ExecutionPolicy RemoteSigned
-#
-
 $scriptPath = $MyInvocation.MyCommand.Path
 $dotfilePath = Split-Path $scriptPath
 $installAll = $false
