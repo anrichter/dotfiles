@@ -36,7 +36,8 @@ function InstallDotFilesIn([string] $path) {
 function InstallPowerShellFiles {
   $psfilePath = "$dotfilePath\powershell"
   $psmodulesPath = "$psfilePath\Modules"
-  $psmodulesDestPath = "$HOME\Documents\WindowsPowerShell\Modules"
+  $psmodulesDestPath = Split-Path $PROFILE
+  $psmodulesDestPath += "\Modules"
 
   if (!(Test-Path $psmodulesDestPath -PathType Container)) {
     New-Item $psmodulesDestPath -ItemType Container
