@@ -45,6 +45,7 @@ $global:GitPromptSettings = New-Object PSObject -Property @{
     EnablePromptStatus        = !$Global:GitMissing
     EnableFileStatus          = $true
     RepositoriesInWhichToDisableFileStatus = @( ) # Array of repository paths
+    DescribeStyle             = ''
 
     EnableWindowTitle         = 'posh~git ~ '
 
@@ -144,7 +145,7 @@ function Write-GitStatus($status) {
     }
 }
 
-if((Get-Variable -Scope Global -Name VcsPromptStatuses -ErrorAction SilentlyContinue) -eq $null) {
+if(!(Test-Path Variable:Global:VcsPromptStatuses)) {
     $Global:VcsPromptStatuses = @()
 }
 function Global:Write-VcsStatus { $Global:VcsPromptStatuses | foreach { & $_ } }
