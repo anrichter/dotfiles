@@ -48,7 +48,15 @@ function Get-GitBranch($gitDir = $(Get-GitDirectory), [Diagnostics.Stopwatch]$sw
             $b = Invoke-NullCoalescing `
                 { dbg 'Trying symbolic-ref' $sw; git symbolic-ref HEAD 2>$null } `
                 { '({0})' -f (Invoke-NullCoalescing `
-                    { dbg 'Trying describe' $sw; git describe --exact-match HEAD 2>$null } `
+                    {
+                        dbg 'Trying describe' $sw
+                        switch ($Global:GitPromptSettings.DescribeStyle) {
+                            'contains' { git describe --contains HEAD 2>$null }
+                            'branch' { git describe --contains --all HEAD 2>$null }
+                            'describe' { git describe HEAD 2>$null }
+                            default { git describe --tags --exact-match HEAD 2>$null }
+                        }
+                    } `
                     {
                         dbg 'Falling back on parsing HEAD' $sw
                         $ref = $null
@@ -138,7 +146,7 @@ function Get-GitStatus($gitDir = (Get-GitDirectory)) {
                         }
                     }
 
-                    '^## (?<branch>\S+)(?:\.\.\.(?<upstream>\S+) \[(?:ahead (?<ahead>\d+))?(?:, )?(?:behind (?<behind>\d+))?\])?$' {
+                    '^## (?<branch>\S+?)(?:\.\.\.(?<upstream>\S+))?(?: \[(?:ahead (?<ahead>\d+))?(?:, )?(?:behind (?<behind>\d+))?\])?$' {
                         $branch = $matches['branch']
                         $upstream = $matches['upstream']
                         $aheadBy = [int]$matches['ahead']
@@ -281,8 +289,7 @@ function Add-SshKey() {
     if (!$sshAdd) { Write-Warning 'Could not find ssh-add'; return }
 
     if ($args.Count -eq 0) {
-        $sshPath = Get-SshPath
-        if ($sshPath) { & $sshAdd $sshPath }
+        & $sshAdd
     } else {
         foreach ($value in $args) {
             & $sshAdd $value
