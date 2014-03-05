@@ -37,6 +37,12 @@ function Start-VisualStudio2012Environment {
   add-windowtitle "Visual Studio 2012"
 }
 
+function Start-VisualStudio2013Environment {
+  load-environment "${env:VS120COMNTOOLS}\VsDevCmd.bat"
+  Write-Host "Visual Studio 2013 Environment Variables set." -ForegroundColor Yellow
+  add-windowtitle "Visual Studio 2013"
+}
+
 function New-Gitignore ([string] $environment) {
   $source = "$HOME\.gitignores\$environment.gitignore"
   if (Test-Path $source) {
