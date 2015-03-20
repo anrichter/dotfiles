@@ -57,6 +57,7 @@ function New-Gitignore ([string] $environment) {
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
 append-path "${env:ProgramFiles(x86)}\Git\cmd"
 append-path "${env:ProgramFiles(x86)}\Git\bin"
+append-path "$HOME\bin"
 
 #
 # Posh-Git
