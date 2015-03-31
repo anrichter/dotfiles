@@ -51,20 +51,10 @@ function New-Gitignore ([string] $environment) {
 }
 
 #
-# Path
-#
-
-append-path "${env:ProgramFiles(x86)}\vim\vim74"
-append-path "${env:ProgramFiles(x86)}\Git\cmd"
-append-path "${env:ProgramFiles(x86)}\Git\bin"
-append-path "$HOME\bin"
-
-#
 # Posh-Git
 #
 
 Import-Module posh-git
-Import-Module posh-svn
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
@@ -80,6 +70,15 @@ function prompt {
 }
 
 Enable-GitColors
+
+#
+# Path
+#
+
+append-path "${env:ProgramFiles(x86)}\vim\vim74"
+append-path "${env:ProgramFiles(x86)}\Git\cmd"
+append-path "${env:ProgramFiles(x86)}\Git\bin"
+append-path "$HOME\bin"
 
 #
 # Aliases
