@@ -78,7 +78,9 @@ Enable-GitColors
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
 append-path "${env:ProgramFiles(x86)}\Git\cmd"
 append-path "${env:ProgramFiles(x86)}\Git\bin"
-append-path "$HOME\bin"
+append-path "${env:HOME}\bin"
+append-path "${env:LocalAppPath}\atom\bin"
+append-path "${env:LocalAppPath}\Pandoc"
 
 #
 # Aliases
