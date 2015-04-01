@@ -51,6 +51,17 @@ function New-Gitignore ([string] $environment) {
 }
 
 #
+# Path
+#
+
+append-path "${env:ProgramFiles(x86)}\vim\vim74"
+append-path "${env:ProgramFiles(x86)}\Git\cmd"
+append-path "${env:ProgramFiles(x86)}\Git\bin"
+append-path "${env:HOME}\bin"
+append-path "${env:LocalAppPath}\atom\bin"
+append-path "${env:LocalAppPath}\Pandoc"
+
+#
 # Posh-Git
 #
 
@@ -70,17 +81,6 @@ function prompt {
 }
 
 Enable-GitColors
-
-#
-# Path
-#
-
-append-path "${env:ProgramFiles(x86)}\vim\vim74"
-append-path "${env:ProgramFiles(x86)}\Git\cmd"
-append-path "${env:ProgramFiles(x86)}\Git\bin"
-append-path "${env:HOME}\bin"
-append-path "${env:LocalAppPath}\atom\bin"
-append-path "${env:LocalAppPath}\Pandoc"
 
 #
 # Aliases
