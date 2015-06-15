@@ -4,11 +4,22 @@
 
 function script:append-path([string] $path)
 {
-  if ( -not [string]::IsNullOrEmpty($path) )
+  if (-not [string]::IsNullOrEmpty($path))
   {
-    if ( (Test-Path $path) -and ( -not $env:PATH.contains($path) ) )
+    if ((Test-Path $path) -and (-not $env:Path.contains($path)))
     {
-      $env:PATH += ';' + $path
+      $env:Path = [string]::Format("{0};{1}", $env:Path, $path)
+    }
+  }
+}
+
+function script:prepend-path([string] $path)
+{
+  if (-not [string]::IsNullOrEmpty($path))
+  {
+    if ((Test-Path $path) -and (-not $env:Path.contains($path)))
+    {
+      $env:Path = [string]::Format("{0};{1}", $path, $env:Path)
     }
   }
 }
@@ -53,6 +64,8 @@ function New-Gitignore ([string] $environment) {
 #
 # Path
 #
+
+prepend-path "${env:UserProfile}\.dnx\bin"
 
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
 append-path "${env:ProgramFiles(x86)}\Git\cmd"
