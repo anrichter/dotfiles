@@ -3,7 +3,7 @@
 
 $global:GitPromptSettings = New-Object PSObject -Property @{
     DefaultForegroundColor    = $Host.UI.RawUI.ForegroundColor
-
+    
     BeforeText                = ' ['
     BeforeForegroundColor     = [ConsoleColor]::Yellow
     BeforeBackgroundColor     = $Host.UI.RawUI.BackgroundColor
@@ -26,16 +26,20 @@ $global:GitPromptSettings = New-Object PSObject -Property @{
 
     BeforeIndexText           = ""
     BeforeIndexForegroundColor= [ConsoleColor]::DarkGreen
+    BeforeIndexForegroundBrightColor= [ConsoleColor]::Green
     BeforeIndexBackgroundColor= $Host.UI.RawUI.BackgroundColor
 
     IndexForegroundColor      = [ConsoleColor]::DarkGreen
+    IndexForegroundBrightColor= [ConsoleColor]::Green
     IndexBackgroundColor      = $Host.UI.RawUI.BackgroundColor
 
     WorkingForegroundColor    = [ConsoleColor]::DarkRed
+    WorkingForegroundBrightColor = [ConsoleColor]::Red
     WorkingBackgroundColor    = $Host.UI.RawUI.BackgroundColor
 
     UntrackedText             = ' !'
     UntrackedForegroundColor  = [ConsoleColor]::DarkRed
+    UntrackedForegroundBrightColor  = [ConsoleColor]::Red
     UntrackedBackgroundColor  = $Host.UI.RawUI.BackgroundColor
 
     ShowStatusWhenZero        = $true
@@ -50,7 +54,15 @@ $global:GitPromptSettings = New-Object PSObject -Property @{
     EnableWindowTitle         = 'posh~git ~ '
 
     Debug                     = $false
+
+    BranchNameLimit           = 0
+    TruncatedBranchSuffix     = '...'
 }
+
+$currentUser = [Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())
+$isAdminProcess = $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+$adminHeader = if ($isAdminProcess) { 'Administrator: ' } else { '' }
 
 $WindowTitleSupported = $true
 if (Get-Module NuGet) {
@@ -63,6 +75,17 @@ function Write-Prompt($Object, $ForegroundColor, $BackgroundColor = -1) {
     } else {
         Write-Host $Object -NoNewLine -ForegroundColor $ForegroundColor -BackgroundColor $BackgroundColor
     }
+}
+
+function Format-BranchName($branchName){
+    $s = $global:GitPromptSettings
+
+    if($s.BranchNameLimit -gt 0 -and $branchName.Length -gt $s.BranchNameLimit)
+    {
+        $branchName = "{0}{1}" -f $branchName.Substring(0,$s.BranchNameLimit), $s.TruncatedBranchSuffix
+    }
+
+    return $branchName
 }
 
 function Write-GitStatus($status) {
@@ -86,7 +109,7 @@ function Write-GitStatus($status) {
             $branchForegroundColor = $s.BranchAheadForegroundColor
         }
 
-        Write-Prompt $status.Branch -BackgroundColor $branchBackgroundColor -ForegroundColor $branchForegroundColor
+        Write-Prompt (Format-BranchName($status.Branch)) -BackgroundColor $branchBackgroundColor -ForegroundColor $branchForegroundColor
 
         if($s.EnableFileStatus -and $status.HasIndex) {
             Write-Prompt $s.BeforeIndexText -BackgroundColor $s.BeforeIndexBackgroundColor -ForegroundColor $s.BeforeIndexForegroundColor
@@ -138,7 +161,7 @@ function Write-GitStatus($status) {
             }
             $repoName = Split-Path -Leaf (Split-Path $status.GitDir)
             $prefix = if ($s.EnableWindowTitle -is [string]) { $s.EnableWindowTitle } else { '' }
-            $Host.UI.RawUI.WindowTitle = "$prefix$repoName [$($status.Branch)]"
+            $Host.UI.RawUI.WindowTitle = "$script:adminHeader$prefix$repoName [$($status.Branch)]"
         }
     } elseif ( $Global:PreviousWindowTitle ) {
         $Host.UI.RawUI.WindowTitle = $Global:PreviousWindowTitle
@@ -148,10 +171,23 @@ function Write-GitStatus($status) {
 if(!(Test-Path Variable:Global:VcsPromptStatuses)) {
     $Global:VcsPromptStatuses = @()
 }
+$s = $global:GitPromptSettings
+
+# Override some of the normal colors if the background color is set to the default DarkMagenta.
+if ($Host.UI.RawUI.BackgroundColor -eq [ConsoleColor]::DarkMagenta) { 
+    $s.BeforeIndexForegroundColor = $s.BeforeIndexForegroundBrightColor 
+    $s.IndexForegroundColor = $s.IndexForegroundBrightColor 
+
+    $s.UntrackedForegroundColor = $s.UntrackedForegroundBrightColor
+    $s.WorkingForegroundColor = $s.WorkingForegroundBrightColor 
+}
+
 function Global:Write-VcsStatus { $Global:VcsPromptStatuses | foreach { & $_ } }
 
 # Add scriptblock that will execute for Write-VcsStatus
-$Global:VcsPromptStatuses += {
+$PoshGitVcsPrompt = {
     $Global:GitStatus = Get-GitStatus
     Write-GitStatus $GitStatus
 }
+$Global:VcsPromptStatuses += $PoshGitVcsPrompt
+$ExecutionContext.SessionState.Module.OnRemove = { $Global:VcsPromptStatuses = $Global:VcsPromptStatuses | ? { $_ -ne $PoshGitVcsPrompt} }
