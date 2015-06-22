@@ -122,4 +122,4 @@ if [ -f "$HOME/.ls_colors" ]; then
 fi
 
 # ASP.NET vNext
-[ -s "$HOME/.kre/kvm/kvm.sh" ] && . "$HOME/.kre/kvm/kvm.sh" # Load kvm
+[ -s "$HOME/.dnx/dnvm/dnvm.sh" ] && . "$HOME/.dnx/dnvm/dnvm.sh" # Load dnvm
