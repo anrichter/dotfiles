@@ -115,10 +115,15 @@ function Get-GitStatus($gitDir = (Get-GitDirectory)) {
         $filesModified = @()
         $filesDeleted = @()
         $filesUnmerged = @()
+        $stashCount = 0
 
         if($settings.EnableFileStatus -and !$(InDisabledRepository)) {
             dbg 'Getting status' $sw
             $status = git -c color.status=false status --short --branch 2>$null
+            if($settings.EnableStashStatus) {
+                dbg 'Getting stash count' $sw
+                $stashCount = $null | git stash list 2>$null | measure-object | select -expand Count
+            }
         } else {
             $status = @()
         }
@@ -180,11 +185,13 @@ function Get-GitStatus($gitDir = (Get-GitDirectory)) {
             Branch          = $branch
             AheadBy         = $aheadBy
             BehindBy        = $behindBy
+            Upstream        = $upstream
             HasIndex        = [bool]$index
             Index           = $index
             HasWorking      = [bool]$working
             Working         = $working
             HasUntracked    = [bool]$filesAdded
+            StashCount      = $stashCount
         }
 
         dbg 'Finished' $sw
@@ -244,7 +251,7 @@ function Set-TempEnv($key, $value) {
 # is a running agent.
 function Get-SshAgent() {
     if ($env:GIT_SSH -imatch 'plink') {
-        $pageantPid = Get-Process | Where-Object { $_.Name -eq 'pageant' } | Select -ExpandProperty Id
+        $pageantPid = Get-Process | Where-Object { $_.Name -eq 'pageant' } | Select -ExpandProperty Id -First 1
         if ($null -ne $pageantPid) { return $pageantPid }
     } else {
         $agentPid = $Env:SSH_AGENT_PID
@@ -278,10 +285,12 @@ function Guess-Ssh($program = 'ssh-agent') {
     Write-Verbose "$program not in path. Trying to guess location."
     $gitItem = Get-Command git -Erroraction SilentlyContinue | Get-Item
     if ($gitItem -eq $null) { Write-Warning 'git not in path'; return }
-    $sshLocation = join-path $gitItem.directory.parent.fullname bin
-    $sshLocation = join-path $sshLocation $program
-    if (!(get-command $sshLocation -Erroraction SilentlyContinue)) { return }     # Guessing failed.
-    else { return $sshLocation }
+
+    $sshLocation = join-path $gitItem.directory.parent.fullname bin/$program
+    if (get-command $sshLocation -Erroraction SilentlyContinue) { return $sshLocation }
+
+    $sshLocation = join-path $gitItem.directory.parent.fullname usr/bin/$program
+    if (get-command $sshLocation -Erroraction SilentlyContinue) { return $sshLocation }
 }
 
 # Loosely based on bash script from http://help.github.com/ssh-key-passphrases/
@@ -301,7 +310,7 @@ function Start-SshAgent([switch]$Quiet) {
         $pageant = Get-Command pageant -TotalCount 1 -Erroraction SilentlyContinue
         $pageant = if ($pageant) {$pageant} else {Guess-Pageant}
         if (!$pageant) { Write-Warning "Could not find Pageant."; return }
-        & $pageant
+        Start-Process -NoNewWindow $pageant
     } else {
         $sshAgent = Get-Command ssh-agent -TotalCount 1 -ErrorAction SilentlyContinue
         $sshAgent = if ($sshAgent) {$sshAgent} else {Guess-Ssh('ssh-agent')}
