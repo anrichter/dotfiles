@@ -54,6 +54,12 @@ function Start-VisualStudio2013Environment {
   add-windowtitle "Visual Studio 2013"
 }
 
+function Start-VisualStudio2015Environment {
+  load-environment "${env:VS140COMNTOOLS}\VsDevCmd.bat"
+  Write-Host "Visual Studio 2015 Environment Variables set." -ForegroundColor Yellow
+  add-windowtitle "Visual Studio 2015"
+}
+
 function New-Gitignore ([string] $environment) {
   $source = "$HOME\.gitignores\$environment.gitignore"
   if (Test-Path $source) {
