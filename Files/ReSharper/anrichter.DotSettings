@@ -1,4 +1,52 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/CustomProperties/=FileName/@EntryIndexedValue">UnitTests</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Description/@EntryValue">&amp;Unittest</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=HEADER/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=HEADER/Expression/@EntryValue">fileheader()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=HEADER/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=HEADER/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=SUT/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=SUT/InitialRange/@EntryValue">2</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Field/=SUT/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Text/@EntryValue">$HEADER$using Microsoft.VisualStudio.TestTools.UnitTesting;&#xD;
+&#xD;
+namespace $NAMESPACE$&#xD;
+{&#xD;
+    [TestClass]&#xD;
+    public class $SUT$Tests&#xD;
+	{&#xD;
+        private $SUT$ _sut;&#xD;
+&#xD;
+        [TestInitialize]&#xD;
+        public void TestInitialize()&#xD;
+        {&#xD;
+            _sut = new $SUT$();&#xD;
+        }&#xD;
+&#xD;
+        [TestMethod]&#xD;
+        public void Firsttest()&#xD;
+        {&#xD;
+            // Arrange&#xD;
+			$END$&#xD;
+            &#xD;
+            // Act&#xD;
+&#xD;
+            // Assert&#xD;
+        }&#xD;
+	}&#xD;
+}</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5788A900A99574BB448B89264E7A683/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5788A900A99574BB448B89264E7A683/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5788A900A99574BB448B89264E7A683/Description/@EntryValue">Add a new Test Method</s:String>
