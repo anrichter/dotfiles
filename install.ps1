@@ -1,55 +1,58 @@
-param([switch]$WhatIf = $false)
+$scriptPath = $MyInvocation.MyCommand.Path
+$dotfilePath = Split-Path $scriptPath
+$installAll = $false
 
-if($PSVersionTable.PSVersion.Major -lt 2) {
-    Write-Warning "posh-git requires PowerShell 2.0 or better; you have version $($Host.Version)."
-    return
-}
+function CanInstall([string] $path) {
+  if ((!$installAll) -and (Test-Path $path)) {
+    $key = Read-Host "Dotfile $destination already exists. Overwrite it? [Y/n/a]"
 
-if(!(Test-Path $PROFILE)) {
-    Write-Host "Creating PowerShell profile...`n$PROFILE"
-    New-Item $PROFILE -Force -Type File -ErrorAction Stop -WhatIf:$WhatIf > $null
-}
-
-if(!(Get-Command git -ErrorAction SilentlyContinue)) {
-    Write-Warning 'Could not find git command. Please create a git alias or add %ProgramFiles%\Git\cmd to PATH.'
-    return
-}
-
-$installDir = Split-Path $MyInvocation.MyCommand.Path -Parent
-if(!(. (Join-Path $installDir "CheckVersion.ps1"))) {
-    return
-}
-
-# Adapted from http://www.west-wind.com/Weblog/posts/197245.aspx
-function Get-FileEncoding($Path) {
-    $bytes = [byte[]](Get-Content $Path -Encoding byte -ReadCount 4 -TotalCount 4)
-
-    if(!$bytes) { return 'utf8' }
-
-    switch -regex ('{0:x2}{1:x2}{2:x2}{3:x2}' -f $bytes[0],$bytes[1],$bytes[2],$bytes[3]) {
-        '^efbbbf'   { return 'utf8' }
-        '^2b2f76'   { return 'utf7' }
-        '^fffe'     { return 'unicode' }
-        '^feff'     { return 'bigendianunicode' }
-        '^0000feff' { return 'utf32' }
-        default     { return 'ascii' }
+    if ($key -eq "n") {
+      return $false
     }
+    if ($key -eq "a") {
+      $script:installAll = $true
+    }
+  }
+  return $true
 }
 
-$profileLine = ". '$installDir\profile.example.ps1'"
-if(Select-String -Path $PROFILE -Pattern $profileLine -Quiet -SimpleMatch) {
-    Write-Host "It seems posh-git is already installed..."
-    return
+function InstallDotFile([string] $source, [string] $destination) {
+  if (CanInstall $destination) {
+    Write-Host "Install dotfile $destination"
+    if (Test-Path $destination) {
+      Remove-Item $destination -Recurse
+    }
+    Copy-Item $source $destination -Recurse
+  }
 }
 
-Write-Host "Adding posh-git to profile..."
-@"
+function InstallDotFilesIn([string] $path) {
+  $sourcePath = $dotfilePath + '\' + $path;
+  foreach($file in Get-ChildItem -Exclude "vim" $sourcePath -Name) {
+    InstallDotFile "$sourcePath\$file" "$HOME\.$file"
+  }
+}
 
-# Load posh-git example profile
-$profileLine
+function InstallPowerShellFiles {
+  $psfilePath = "$dotfilePath\powershell"
+  $psmodulesPath = "$psfilePath\Modules"
+  $psmodulesDestPath = Split-Path $PROFILE
+  $psmodulesDestPath += "\Modules"
 
-"@ | Out-File $PROFILE -Append -WhatIf:$WhatIf -Encoding (Get-FileEncoding $PROFILE)
+  if (!(Test-Path $psmodulesDestPath -PathType Container)) {
+    New-Item $psmodulesDestPath -ItemType Container
+  }
 
-Write-Host 'posh-git sucessfully installed!'
-Write-Host 'Please reload your profile for the changes to take effect:'
-Write-Host '    . $PROFILE'
+  InstallDotFile "$psfilePath\profile.ps1" "$PROFILE"
+
+  foreach($module in Get-ChildItem "$psmodulesPath" -Name)
+  {
+    InstallDotFile "$psmodulesPath\$module" "$psmodulesDestPath\$module"
+  }
+}
+
+InstallDotFilesIn "independent"
+InstallDotFilesIn "bash"
+InstallDotFile "$dotfilePath\independent\vim" "$HOME\vimfiles"
+InstallPowerShellFiles
+InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
