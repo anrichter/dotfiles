@@ -68,6 +68,16 @@ function New-Gitignore ([string] $environment) {
 }
 
 #
+# Set PS Module Path
+#
+
+$invocation = (Get-Variable MyInvocation).Value
+$directoryPath = Split-Path $invocation.MyCommand.Path
+$modulesPath = $directorypath + "\Modules"
+$currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Machine")
+[Environment]::SetEnvironmentVariable("PSModulePath", $currentPSModulePath + ";" + $modulesPath)
+
+#
 # Path
 #
 
