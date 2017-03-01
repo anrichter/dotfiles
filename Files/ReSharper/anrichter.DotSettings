@@ -13,11 +13,8 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0063D245573261478A9194CFA93A15C6/Text/@EntryValue">[Test]&#xD;
 public void $Testname$()&#xD;
 {&#xD;
-    // Arrange&#xD;
     $END$&#xD;
-    // Act&#xD;
-&#xD;
-    // Assert&#xD;
+	Assert.Inconclusive();&#xD;
 }</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FA323199BB33648807728CC6C5C1C6B/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
@@ -85,11 +82,8 @@ namespace $NAMESPACE$&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5788A900A99574BB448B89264E7A683/Text/@EntryValue">[TestMethod]&#xD;
 public void $Testname$()&#xD;
 {&#xD;
-    // Arrange&#xD;
     $END$&#xD;
-    // Act&#xD;
-&#xD;
-    // Assert&#xD;
+	Assert.Inconclusive();&#xD;
 }</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC112E332E09314B9EEBBB4FDA9E39A0/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC112E332E09314B9EEBBB4FDA9E39A0/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
