@@ -90,7 +90,6 @@ append-path "${env:UserProfile}\bin"
 append-path "${env:UserProfile}\bin\GitTfs"
 append-path "${env:LocalAppData}\atom\bin"
 append-path "${env:LocalAppData}\Code\bin"
-append-path "${env:LocalAppData}\Pandoc"
 
 #
 # Posh-Git
