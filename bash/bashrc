@@ -127,6 +127,8 @@ fi
 # Node Version Manager
 [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh" # Load nvm
 
-# set umask
-umask 022
+# Bash on Windows does not currently apply umask properly.
+if [ "$(umask)" = "0000" ]; then
+  umask 022
+fi
 
