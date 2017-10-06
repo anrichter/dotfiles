@@ -127,3 +127,6 @@ fi
 # Node Version Manager
 [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh" # Load nvm
 
+# set umask
+umask 022
+
