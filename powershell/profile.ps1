@@ -109,6 +109,15 @@ function prompt {
 }
 
 #
+# Get-ChildItemColors
+
+Import-Module Get-ChildItemColor
+
+Set-Alias l Get-ChildItemColor -option AllScope
+Set-Alias ll Get-ChildItemColor -option AllScope
+Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
+
+#
 # Aliases
 #
 
