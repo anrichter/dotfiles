@@ -95,7 +95,7 @@ append-path "${env:LocalAppData}\Code\bin"
 # Posh-Git
 #
 
-Import-Module posh-git
+Import-Module $modulesPath\posh-git\src\posh-git.psd1
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
