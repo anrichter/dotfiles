@@ -1,6 +1,6 @@
-[submodule ".\\powershell\\Modules\\posh-git"]
-	path = .\\powershell\\Modules\\posh-git
+[submodule "powershell/Modules/posh-git"]
+	path = powershell/Modules/posh-git
 	url = https://github.com/dahlbyk/posh-git.git
-[submodule ".\\powershell\\Modules\\Get-ChildItemColor"]
-	path = .\\powershell\\Modules\\Get-ChildItemColor
+[submodule "powershell/Modules/Get-ChildItemColor"]
+	path = powershell/Modules/Get-ChildItemColor
 	url = https://github.com/joonro/Get-ChildItemColor.git
