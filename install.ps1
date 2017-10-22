@@ -33,26 +33,27 @@ function InstallDotFilesIn([string] $path) {
   }
 }
 
-function InstallPowerShellFiles {
-  $psfilePath = "$dotfilePath\powershell"
-  $psmodulesPath = "$psfilePath\Modules"
-  $psmodulesDestPath = Split-Path $PROFILE
-  $psmodulesDestPath += "\Modules"
+function CreatePowerShellProfile {
+  $psprofilePath = "$dotfilePath\powershell\profile.ps1"
+  $dotProfile = ". $psprofilePath"
 
-  if (!(Test-Path $psmodulesDestPath -PathType Container)) {
-    New-Item $psmodulesDestPath -ItemType Container
+  if (!(Test-Path $PROFILE)) {
+    New-Item -ItemType File -Path $PROFILE
   }
 
-  InstallDotFile "$psfilePath\profile.ps1" "$PROFILE"
-
-  foreach($module in Get-ChildItem "$psmodulesPath" -Name)
-  {
-    InstallDotFile "$psmodulesPath\$module" "$psmodulesDestPath\$module"
+  $oldContent = Get-Content $PROFILE
+  if (($oldContent -eq $null) -or !$oldContent.Contains($dotProfile)) {
+    Set-Content -Path $PROFILE -Value "#"
+    Add-Content -Path $PROFILE -Value "# Source profile.ps1 from dotfiles"
+    Add-Content -Path $PROFILE -Value "#"
+    Add-Content -Path $PROFILE -Value $dotProfile
+    Add-Content -Path $PROFILE -Value ""
+    Add-Content -Path $PROFILE -value $oldContent
   }
 }
 
 InstallDotFilesIn "independent"
 InstallDotFilesIn "bash"
 InstallDotFile "$dotfilePath\independent\vim" "$HOME\vimfiles"
-InstallPowerShellFiles
+CreatePowerShellProfile
 InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
