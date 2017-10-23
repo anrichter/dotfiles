@@ -86,10 +86,10 @@ prepend-path "${env:UserProfile}\.dnx\bin"
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
 append-path "${env:ProgramFiles}\Git\cmd"
 append-path "${env:ProgramFiles}\Git\usr\bin"
+append-path "${env:ProgramFiles}\Microsoft VS Code\bin"
 append-path "${env:UserProfile}\bin"
 append-path "${env:UserProfile}\bin\GitTfs"
 append-path "${env:LocalAppData}\atom\bin"
-append-path "${env:LocalAppData}\Code\bin"
 
 #
 # Posh-Git
