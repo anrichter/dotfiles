@@ -82,14 +82,18 @@ $currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Ma
 #
 
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
-append-path "${env:ProgramFiles}\Git\cmd"
-append-path "${env:ProgramFiles}\Git\usr\bin"
 append-path "${env:ProgramFiles}\Microsoft VS Code\bin"
 append-path "${env:UserProfile}\bin"
 
 #
-# Posh-Git
+# Git
 #
+
+append-path "${env:ProgramFiles}\Git\cmd"
+append-path "${env:ProgramFiles}\Git\usr\bin"
+
+# enable git logs with umlauts
+[Environment]::SetEnvironmentVariable("LESSCHARSET", "UTF-8")
 
 Import-Module $modulesPath\posh-git\src\posh-git.psd1
 
@@ -106,6 +110,7 @@ function prompt {
 
 #
 # Get-ChildItemColors
+#
 
 Import-Module Get-ChildItemColor
 

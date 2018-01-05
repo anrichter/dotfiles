@@ -5,3 +5,5 @@
 	excludesfile = ~/.gitignore.global
 [color]
 	ui = auto
+[alias]
+	l = log --oneline --graph --branches --remotes --date-order
