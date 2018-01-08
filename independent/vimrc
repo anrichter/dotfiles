@@ -1,6 +1,3 @@
-" Load Plugin system
-call pathogen#infect()
-
 " Internal settings
 set encoding=utf-8
 
