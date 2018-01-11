@@ -6,5 +6,5 @@
 [color]
 	ui = auto
 [alias]
-	l = log --pretty='format:%C(yellow)%h%Creset %C(auto)%d%Creset %C(bold blue)%an%Creset %C(bold green)%cr%Creset %s' --graph --branches --remotes --date-order
+	l = log --pretty='format:%C(yellow)%h%Creset %C(auto)%d%Creset %C(bold blue)%an%Creset %C(bold green)%ar%Creset %s' --graph --branches --remotes --date-order
 	ls = log --oneline --graph --branches --remotes --date-order
