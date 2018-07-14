@@ -42,22 +42,13 @@ function script:add-windowtitle([string] $title) {
 # Global Functions
 #
 
-function Start-VisualStudio2012Environment {
-  load-environment "${env:VS110COMNTOOLS}\VsDevCmd.bat"
-  Write-Host "Visual Studio 2012 Environment Variables set." -ForegroundColor Yellow
-  add-windowtitle "Visual Studio 2012"
-}
-
-function Start-VisualStudio2013Environment {
-  load-environment "${env:VS120COMNTOOLS}\VsDevCmd.bat"
-  Write-Host "Visual Studio 2013 Environment Variables set." -ForegroundColor Yellow
-  add-windowtitle "Visual Studio 2013"
-}
-
-function Start-VisualStudio2015Environment {
-  load-environment "${env:VS140COMNTOOLS}\VsDevCmd.bat"
-  Write-Host "Visual Studio 2015 Environment Variables set." -ForegroundColor Yellow
-  add-windowtitle "Visual Studio 2015"
+function Start-VisualStudioEnvironment {
+  $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+  $installationPath = & "${vswhere}" -property installationPath
+  $displayName = & "${vswhere}" -property displayName
+  load-environment "${installationPath}\Common7\Tools\VsDevCmd.bat"
+  Write-Host "${displayName} Environment loaded." -ForegroundColor Yellow
+  add-windowtitle "${displayName}"
 }
 
 function New-Gitignore ([string] $environment) {
