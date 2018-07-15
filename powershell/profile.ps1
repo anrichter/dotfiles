@@ -89,14 +89,14 @@ append-path "${env:ProgramFiles}\Git\usr\bin"
 Import-Module $modulesPath\posh-git\src\posh-git.psd1
 
 function prompt {
-    $realLASTEXITCODE = $LASTEXITCODE
+  $realLASTEXITCODE = $LASTEXITCODE
 
-    Write-Host($pwd.ProviderPath) -nonewline
+  Write-Host($pwd.ProviderPath) -nonewline
 
-    Write-VcsStatus
+  Write-VcsStatus
 
-    $global:LASTEXITCODE = $realLASTEXITCODE
-    return "> "
+  $global:LASTEXITCODE = $realLASTEXITCODE
+  return "> "
 }
 
 #
