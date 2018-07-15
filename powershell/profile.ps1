@@ -110,6 +110,15 @@ Set-Alias ll Get-ChildItemColor -option AllScope
 Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
 
 #
+# Chocolatey
+#
+
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+#
 # Aliases
 #
 
