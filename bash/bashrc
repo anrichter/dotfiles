@@ -103,6 +103,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+if [[ "$OSTYPE" == "darwin"* ]] && [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 # Show git info in prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
