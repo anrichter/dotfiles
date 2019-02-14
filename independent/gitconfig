@@ -2,9 +2,18 @@
 	email = ar@anrichter.net
 	name = Andreas Richter
 [core]
+	editor = code --wait --new-window
 	excludesfile = ~/.gitignore.global
 [color]
 	ui = auto
 [alias]
 	l = log --pretty='format:%C(yellow)%h%Creset %C(auto)%d%Creset %C(bold blue)%an%Creset %C(bold green)%ar%Creset %s' --graph --branches --remotes --date-order
 	ls = log --oneline --graph --branches --remotes --date-order
+[merge]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait --new-window $MERGED
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --new-window $LOCAL $REMOTE
