@@ -44,8 +44,8 @@ function script:add-windowtitle([string] $title) {
 
 function Start-VisualStudioEnvironment {
   $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-  $installationPath = & "${vswhere}" -property installationPath
-  $displayName = & "${vswhere}" -property displayName
+  $installationPath = & "${vswhere}" -latest -property installationPath
+  $displayName = & "${vswhere}" -latest -property displayName
   load-environment "${installationPath}\Common7\Tools\VsDevCmd.bat"
   Write-Host "${displayName} Environment loaded." -ForegroundColor Yellow
   add-windowtitle "${displayName}"
