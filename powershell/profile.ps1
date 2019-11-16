@@ -87,17 +87,7 @@ append-path "${env:ProgramFiles}\Git\usr\bin"
 [Environment]::SetEnvironmentVariable("LESSCHARSET", "UTF-8")
 
 Import-Module $modulesPath\posh-git\src\posh-git.psd1
-
-function prompt {
-  $realLASTEXITCODE = $LASTEXITCODE
-
-  Write-Host($pwd.ProviderPath) -nonewline
-
-  Write-VcsStatus
-
-  $global:LASTEXITCODE = $realLASTEXITCODE
-  return "> "
-}
+$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $false
 
 #
 # Get-ChildItemColors
