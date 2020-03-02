@@ -51,6 +51,36 @@ function Start-VisualStudioEnvironment {
   add-windowtitle "${displayName}"
 }
 
+<#
+.Description
+Search for Visual Studio Solutions recursiveley and let you choose which to open in the latest Visual Studio.
+#>
+function Open-VisualStudioSolutions()
+{
+    param
+    (
+        [string] $rootFolder
+    )
+
+    if(-not $rootFolder)
+    {
+        $rootFolder=Get-Location;
+    }
+
+    $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+    $installationPath = & "${vswhere}" -latest -property installationPath
+    $displayName = & "${vswhere}" -latest -property displayName
+    $devenv = "$installationPath\Common7\IDE\devenv.exe"
+
+    $solutionsFound=Get-ChildItem -Path $rootFolder -Recurse -File -Filter '*.sln' | Select-Object -ExpandProperty FullName;
+    $chosenSolutions=$solutionsFound | Out-GridView -OutputMode Multiple -Title "Choose Solutions to open in $displayName";
+
+    $chosenSolutions | ForEach-Object {
+        Write-Host "Starte $_";
+        Start-Process "$devenv" -ArgumentList $_;
+    }
+}
+
 function New-Gitignore ([string] $environment) {
   $source = "$HOME\.gitignores\$environment.gitignore"
   if (Test-Path $source) {
