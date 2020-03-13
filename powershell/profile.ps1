@@ -76,8 +76,8 @@ function Open-VisualStudioSolutions()
     $chosenSolutions=$solutionsFound | Out-GridView -OutputMode Multiple -Title "Choose Solutions to open in $displayName";
 
     $chosenSolutions | ForEach-Object {
-        Write-Host "Starte $_";
-        Start-Process "$devenv" -ArgumentList $_;
+        Write-Host "Starte ""$_""";
+        Start-Process "$devenv" -ArgumentList """$_""";
     }
 }
 
