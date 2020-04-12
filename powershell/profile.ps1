@@ -123,7 +123,7 @@ $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $false
 # Get-ChildItemColors
 #
 
-Import-Module Get-ChildItemColor
+Import-Module $modulesPath\Get-ChildItemColor\src\Get-ChildItemColor.psd1
 
 Set-Alias l Get-ChildItemColor -option AllScope
 Set-Alias ll Get-ChildItemColor -option AllScope
