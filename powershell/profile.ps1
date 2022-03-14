@@ -67,17 +67,12 @@ function Open-VisualStudioSolutions()
         $rootFolder=Get-Location;
     }
 
-    $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-    $installationPath = & "${vswhere}" -latest -property installationPath
-    $displayName = & "${vswhere}" -latest -property displayName
-    $devenv = "$installationPath\Common7\IDE\devenv.exe"
-
-    $solutionsFound=Get-ChildItem -Path $rootFolder -Recurse -File -Filter '*.sln' | Select-Object -ExpandProperty FullName;
-    $chosenSolutions=$solutionsFound | Out-GridView -OutputMode Multiple -Title "Choose Solutions to open in $displayName";
+    $solutionsFound = Get-ChildItem -Path $rootFolder -Recurse -File -Filter '*.sln' | Select-Object -ExpandProperty FullName;
+    $chosenSolutions = $solutionsFound | Out-GridView -OutputMode Multiple -Title "Choose Solutions to open";
 
     $chosenSolutions | ForEach-Object {
         Write-Host "Starte ""$_""";
-        Start-Process "$devenv" -ArgumentList """$_""";
+        Invoke-Item -Path "$_";
     }
 }
 
