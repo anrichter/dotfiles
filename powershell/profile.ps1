@@ -108,6 +108,13 @@ append-path "${env:UserProfile}\bin"
 append-path "${env:ProgramFiles}\Git\cmd"
 append-path "${env:ProgramFiles}\Git\usr\bin"
 
+#
+# Git in local AppData
+#
+
+append-path "${env:LOCALAPPDATA}\Programs\Git\cmd"
+append-path "${env:LOCALAPPDATA}\Programs\Git\usr\bin"
+
 # enable git logs with umlauts
 [Environment]::SetEnvironmentVariable("LESSCHARSET", "UTF-8")
 
