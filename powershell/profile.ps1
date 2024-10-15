@@ -100,6 +100,7 @@ $currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Ma
 append-path "${env:ProgramFiles(x86)}\vim\vim74"
 append-path "${env:ProgramFiles}\Microsoft VS Code\bin"
 append-path "${env:UserProfile}\bin"
+append-path "${env:UserProfile}\bin\JetBrains.ReSharper.CommandLineTools"
 
 #
 # Git
