@@ -142,6 +142,12 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 #
+# anrichter-posh
+#
+
+Import-Module $modulesPath\anrichter-posh\anrichter-posh.psd1
+
+#
 # Aliases
 #
 
