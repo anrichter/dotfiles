@@ -54,26 +54,5 @@ install_dotfiles_in () {
   done
 }
 
-fix_vimfiles () {
-  if [ "$MSYSTEM" = "MINGW32" ]
-  then
-    src="$HOME/.vim"
-    dest="$HOME/vimfiles"
-
-    if [ -e "$src" ]
-    then
-      can_install $dest
-      if [ $? = $YES ]
-      then
-        rm -rf "$dest"
-        mv "$src" "$dest"
-      else
-        rm -rf "$src"
-      fi
-    fi
-  fi
-}
-
 install_dotfiles_in "bash"
 install_dotfiles_in "independent"
-fix_vimfiles

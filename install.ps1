@@ -54,6 +54,5 @@ function CreatePowerShellProfile {
 
 InstallDotFilesIn "independent"
 InstallDotFilesIn "bash"
-InstallDotFile "$dotfilePath\independent\vim" "$HOME\vimfiles"
 CreatePowerShellProfile
 InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
