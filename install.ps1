@@ -53,6 +53,5 @@ function CreatePowerShellProfile {
 }
 
 InstallDotFilesIn "independent"
-InstallDotFilesIn "bash"
 CreatePowerShellProfile
 InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
