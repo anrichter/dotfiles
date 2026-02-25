@@ -32,16 +32,6 @@ function script:load-environment([string] $command) {
   }
 }
 
-#
-# Global Functions
-#
-
-function New-Gitignore ([string] $environment) {
-  $source = "$HOME\.gitignores\$environment.gitignore"
-  if (Test-Path $source) {
-    Copy-Item $source .gitignore
-  }
-}
 
 #
 # Set PS Module Path
