@@ -49,5 +49,5 @@ install_dotfiles_in () {
   done
 }
 
-install_dotfiles_in "bash"
+install_dotfiles_in "zsh"
 install_dotfiles_in "independent"
