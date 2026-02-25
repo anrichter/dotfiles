@@ -1,12 +1,13 @@
 My personal DotFiles
 ====================
 
-My dotfiles are for bash and PowerShell environments.
-To install it in a bash environment simple start
+My dotfiles are for zsh on Linux and PowerShell on Windows.
+
+To install it in on Linux simple start
 
     ./install.sh
 
-If you like the PowerShell you can install the dofiles there with
+To install it on Windows open a PowerShell and start
 
     .\install.ps1
 
