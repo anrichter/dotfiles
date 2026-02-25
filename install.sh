@@ -33,13 +33,8 @@ install () {
   source=$1
   dest=$2
   echo "Install $source to $dest"
-  if [ "$MSYSTEM" = "MINGW32" ]
-  then
-    cp -a "$PWD/$source" "$dest"
-  else
-    rm "$dest"
-    ln -sf "$PWD/$source" "$dest"
-  fi
+  rm "$dest"
+  ln -sf "$PWD/$source" "$dest"
 }
 
 install_dotfiles_in () {
