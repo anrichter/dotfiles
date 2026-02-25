@@ -65,6 +65,12 @@ install_dotfiles_in () {
 install_dependencies() {
   echo "In order to use dotfiles in zsh you need to install some dependencies\n"
   
+  can_install "Install Oh My Zsh?"
+  if [ $? = $YES ]
+  then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
+
   can_install "Install Oh My Posh?"
   if [ $? = $YES ]
   then
