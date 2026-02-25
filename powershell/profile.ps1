@@ -13,26 +13,6 @@ function script:append-path([string] $path)
   }
 }
 
-function script:prepend-path([string] $path)
-{
-  if (-not [string]::IsNullOrEmpty($path))
-  {
-    if ((Test-Path $path) -and (-not $env:Path.contains($path)))
-    {
-      $env:Path = [string]::Format("{0};{1}", $path, $env:Path)
-    }
-  }
-}
-
-function script:load-environment([string] $command) {
-  foreach($_ in (cmd /c "`"$command`" & set")) {
-    if ($_ -match '^([^=]+)=(.*)') {
-      [System.Environment]::SetEnvironmentVariable($matches[1], $matches[2])
-    }
-  }
-}
-
-
 #
 # Set PS Module Path
 #
