@@ -15,3 +15,6 @@ compinit
 alias l='ls -l'
 alias la='ls -A'
 alias ll='ls -alF'
+
+export PATH=$PATH:/home/anrichter/.local/bin
+eval "$(oh-my-posh init zsh)"
