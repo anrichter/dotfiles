@@ -17,3 +17,5 @@
 	tool = vscode
 [difftool "vscode"]
 	cmd = code --wait --new-window --diff $LOCAL $REMOTE
+[init]
+	defaultBranch = development
