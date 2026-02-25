@@ -10,3 +10,8 @@ zstyle :compinstall filename '/home/anrichter/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+# directory listings
+alias l='ls -l'
+alias la='ls -A'
+alias ll='ls -alF'
