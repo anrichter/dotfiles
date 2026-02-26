@@ -17,9 +17,9 @@ function script:append-path([string] $path)
 # Set PS Module Path
 #
 
-$invocation = (Get-Variable MyInvocation).Value
-$directoryPath = Split-Path $invocation.MyCommand.Path
-$modulesPath = $directorypath + "\Modules"
+$profileFileInfo = Get-Item -Path $PROFILE
+$dotfileSourcePath = Split-Path -Path $profileFileInfo.Target -Parent
+$modulesPath = $dotfileSourcePath + "\Modules"
 $currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Machine")
 [Environment]::SetEnvironmentVariable("PSModulePath", $currentPSModulePath + ";" + $modulesPath)
 
@@ -27,8 +27,6 @@ $currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Ma
 # Path
 #
 
-append-path "${env:ProgramFiles(x86)}\vim\vim74"
-append-path "${env:ProgramFiles}\Microsoft VS Code\bin"
 append-path "${env:UserProfile}\bin"
 append-path "${env:UserProfile}\bin\JetBrains.ReSharper.CommandLineTools"
 
@@ -49,27 +47,11 @@ append-path "${env:LOCALAPPDATA}\Programs\Git\usr\bin"
 # enable git logs with umlauts
 [Environment]::SetEnvironmentVariable("LESSCHARSET", "UTF-8")
 
-Import-Module $modulesPath\posh-git\src\posh-git.psd1
-$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $false
-
 #
 # Get-ChildItemColors
 #
 
 Import-Module $modulesPath\Get-ChildItemColor\src\Get-ChildItemColor.psd1
-
-Set-Alias l Get-ChildItemColor -option AllScope
-Set-Alias ll Get-ChildItemColor -option AllScope
-Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
-
-#
-# Chocolatey
-#
-
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
 
 #
 # anrichter-posh
@@ -81,4 +63,22 @@ Import-Module $modulesPath\anrichter-posh\anrichter-posh.psd1
 # Aliases
 #
 
-Set-Alias vi vim
+Set-Alias l Get-ChildItemColor -option AllScope
+Set-Alias ll Get-ChildItemColor -option AllScope
+Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
+
+#
+# Import local Profile 
+# 
+
+$localProfile = $PROFILE.Replace('.ps1', '.local.ps1')
+if (Test-Path $localProfile)
+{
+  . $localProfile
+}
+
+#
+# Oh-My-Posh
+#
+
+oh-my-posh init pwsh --config "$HOME/.anrichter.omp.json" | Invoke-Expression

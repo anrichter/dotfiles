@@ -20,9 +20,10 @@ function InstallDotFile([string] $source, [string] $destination) {
   if (CanInstall $destination) {
     Write-Host "Install dotfile $destination"
     if (Test-Path $destination) {
-      Remove-Item $destination -Recurse
+      Move-Item $destination "$($destination).dotfile_save"
     }
-    Copy-Item $source $destination -Recurse
+
+    New-Item -ItemType SymbolicLink -Path $destination -Target $source
   }
 }
 
@@ -35,23 +36,8 @@ function InstallDotFilesIn([string] $path) {
 
 function CreatePowerShellProfile {
   $psprofilePath = "$dotfilePath\powershell\profile.ps1"
-  $dotProfile = ". $psprofilePath"
-
-  if (!(Test-Path $PROFILE)) {
-    New-Item -ItemType File -Path $PROFILE
-  }
-
-  $oldContent = Get-Content $PROFILE
-  if (($oldContent -eq $null) -or !$oldContent.Contains($dotProfile)) {
-    Set-Content -Path $PROFILE -Value "#"
-    Add-Content -Path $PROFILE -Value "# Source profile.ps1 from dotfiles"
-    Add-Content -Path $PROFILE -Value "#"
-    Add-Content -Path $PROFILE -Value $dotProfile
-    Add-Content -Path $PROFILE -Value ""
-    Add-Content -Path $PROFILE -value $oldContent
-  }
+  InstallDotFile $psprofilePath $PROFILE
 }
 
 InstallDotFilesIn "independent"
 CreatePowerShellProfile
-InstallDotFile "$dotfilePath\gitignores" "$HOME\.gitignores"
