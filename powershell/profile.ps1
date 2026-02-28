@@ -29,7 +29,7 @@ $currentPSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Ma
 
 append-path "${env:UserProfile}\bin"
 append-path "${env:UserProfile}\bin\JetBrains.ReSharper.CommandLineTools"
-
+append-path "${env:ProgramFiles(x86)}\GnuWin32\bin"
 #
 # Git
 #
