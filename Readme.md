@@ -14,3 +14,5 @@ To install it on Windows open a PowerShell and start
 In order to run this script you have to set the ExecutionPolicy as an Administrator like this
 
     Set-ExecutionPolicy RemoteSigned
+
+To create symlinks on Windows you have to activate Developer Mode

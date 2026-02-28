@@ -2,9 +2,10 @@ $scriptPath = $MyInvocation.MyCommand.Path
 $dotfilePath = Split-Path $scriptPath
 $installAll = $false
 
-function CanInstall([string] $path) {
-  if ((!$installAll) -and (Test-Path $path)) {
-    $key = Read-Host "Dotfile $destination already exists. Overwrite it? [Y/n/a]"
+function CanInstall([string] $question) {
+  if (!$installAll) {
+    # $key = Read-Host "Dotfile $destination already exists. Overwrite it? [Y/n/a]"
+    $key = Read-Host "$question [Y/n/a]"
 
     if ($key -eq "n") {
       return $false
@@ -17,7 +18,7 @@ function CanInstall([string] $path) {
 }
 
 function InstallDotFile([string] $source, [string] $destination) {
-  if (CanInstall $destination) {
+  if (CanInstall "Dotfile $destination already exists. Overwrite it?") {
     Write-Host "Install dotfile $destination"
     if (Test-Path $destination) {
       Move-Item $destination "$($destination).dotfile_save"
@@ -39,5 +40,14 @@ function CreatePowerShellProfile {
   InstallDotFile $psprofilePath $PROFILE
 }
 
+function InstallDependencies() {
+  Write-Host "In order to use dotfiles in PowerShell you need to install some dependencies"
+  
+  if (CanInstall "Install Oh My Posh?") {
+    winget install JanDeDobbeleer.OhMyPosh
+  }
+}
+
+InstallDependencies
 InstallDotFilesIn "independent"
 CreatePowerShellProfile
