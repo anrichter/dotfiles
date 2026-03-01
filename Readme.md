@@ -16,3 +16,9 @@ In order to run this script you have to set the ExecutionPolicy as an Administra
     Set-ExecutionPolicy RemoteSigned
 
 To create symlinks on Windows you have to activate Developer Mode
+
+After installation from my dotfiles and oh-my-posh, install a Nerd Font with special Icons
+
+    oh-my-posh font install CascadiaCode
+
+Set ```CaskaydiaCove Nerd Font``` as default font in Terminal and Editor
