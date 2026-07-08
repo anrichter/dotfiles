@@ -27,7 +27,7 @@ function Open-VisualStudioSolutions()
         $rootFolder=Get-Location;
     }
 
-    $solutionsFound = Get-ChildItem -Path $rootFolder -Recurse -File -Filter '*.sln' | Select-Object -ExpandProperty FullName;
+    $solutionsFound = Get-ChildItem -Path $rootFolder -Recurse -File -Include '*.sln', '*.slnx' | Select-Object -ExpandProperty FullName;
     $chosenSolutions = $solutionsFound | Out-GridView -OutputMode Multiple -Title "Choose Solutions to open";
 
     $chosenSolutions | ForEach-Object {
