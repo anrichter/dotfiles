@@ -83,3 +83,9 @@ if (Test-Path $localProfile)
 #
 
 oh-my-posh init pwsh --config "$HOME/.anrichter.omp.json" | Invoke-Expression
+
+#
+# Historie als Liste
+#
+
+Set-PSReadLineOption -PredictionViewStyle ListView
